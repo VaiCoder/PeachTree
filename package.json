@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "jest",
     "lint": "ng lint",
-    "postinstall": "ng build --aot --prod"
+    "heroku-postbuild": "ng build --prod"
   },
   "jest":{
     "preset": "jest-preset-angular",
