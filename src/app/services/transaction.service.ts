@@ -14,7 +14,7 @@ export class TransactionService {
     return this.http.get('http://localhost:4200/app/bb-ui/mock-data/transactions.json')
   }
 
-  getSortedData(list:[]){
+  getSortedData(list:any[]){
     return list.sort((a:any,b:any) => {
       return <any>new Date(b.dates.valueDate) - <any>new Date(a.dates.valueDate);
     })

@@ -5,8 +5,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class TransactionFilterPipe implements PipeTransform {
 
-  transform(transactionList: [], searchTerm: string): any[] {
-    let searchResult:[] = [];
+  transform(transactionList: any[], searchTerm: string): any[] {
+    let searchResult:any[] = [];
     if(transactionList.length > 0){
       if(!!searchTerm){
         searchTerm = searchTerm.toLowerCase()
