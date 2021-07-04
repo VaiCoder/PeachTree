@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "peachtree-bank": {
+    "PeachTree": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/peachtree-bank",
+            "outputPath": "dist/PeachTree",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -72,10 +72,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "peachtree-bank:build:production"
+              "browserTarget": "PeachTree:build:production"
             },
             "development": {
-              "browserTarget": "peachtree-bank:build:development"
+              "browserTarget": "PeachTree:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -83,7 +83,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "peachtree-bank:build"
+            "browserTarget": "PeachTree:build"
           }
         },
         "test": {
@@ -116,7 +116,7 @@
       }
     }
   },
-  "defaultProject": "peachtree-bank",
+  "defaultProject": "PeachTree",
   "cli": {
     "defaultCollection": "@angular-eslint/schematics"
   }
