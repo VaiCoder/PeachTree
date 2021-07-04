@@ -1,8 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalDismissReasons, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 
-import { TransactionService } from 'src/app/services/transaction.service';
 
 @Component({
   selector: 'app-overview',
@@ -24,18 +24,25 @@ export class OverviewComponent implements OnInit {
     backdrop: 'static'
   }
 
-  constructor(private transactionService:TransactionService, private modalService: NgbModal, private formBuilder: FormBuilder) { 
+  constructor(private http:HttpClient, private modalService: NgbModal, private formBuilder: FormBuilder) { 
   }
 
   ngOnInit(): void {
-    this.transactionService.getTransactionList().subscribe(
+    // this.http.get('https://r9vdzv10vd.execute-api.eu-central-1.amazonaws.com/dev/transactions').subscribe(
+      this.http.get('http://localhost:4200/app/bb-ui/mock-data/transactions.json').subscribe(
       (res:any) => {
-        let sortedData = this.transactionService.getSortedData(res.data)
+        let sortedData = this.getSortedData(res.data)
         this.transactionList = sortedData
         this.bkp_transactionList = sortedData
       }
     )
     this.setMakeTransferForm();
+  }
+
+  getSortedData(list:any[]){
+    return list.sort((a:any,b:any) => {
+      return <any>new Date(b.dates.valueDate) - <any>new Date(a.dates.valueDate);
+    })
   }
 
   setMakeTransferForm(){

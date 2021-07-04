@@ -25,7 +25,6 @@ import { TransactionFilterPipe } from './transaction-filter.pipe';
     AppRoutingModule,
     BbUIModule
   ],
-  providers: [],
   bootstrap: [ AppComponent ]
 })
 export class AppModule {
