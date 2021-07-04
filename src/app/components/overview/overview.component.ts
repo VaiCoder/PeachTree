@@ -14,6 +14,7 @@ export class OverviewComponent implements OnInit {
   @ViewChild('makeTransferFormEl') makeTransferFormElement: any;
 
   fixedBalance: number = 5824.76;
+  defaultFromAccount:string = "My Personal Account: € "+this.fixedBalance;
   makeTransferForm!: FormGroup;
   transactionList:any = [];
   bkp_transactionList:any = [];
@@ -34,8 +35,12 @@ export class OverviewComponent implements OnInit {
         this.bkp_transactionList = sortedData
       }
     )
+    this.setMakeTransferForm();
+  }
+
+  setMakeTransferForm(){
     this.makeTransferForm = this.formBuilder.group({
-      fromAccount: [{value: "My Personal Account: € "+this.fixedBalance, disabled:true}],
+      fromAccount: [{value: this.defaultFromAccount, disabled:true}],
       toAccount: ['', [Validators.required]],
       totalamount: [null, 
         [
@@ -59,14 +64,14 @@ export class OverviewComponent implements OnInit {
       (res) => {},
       (reason) => {
         if(reason == ModalDismissReasons.BACKDROP_CLICK || reason == ModalDismissReasons.ESC){
-          this.makeTransferForm.reset();
+          this.setMakeTransferForm();
         }
       })
   }
 
   closeModal(){
     this.modalService.dismissAll()
-    this.makeTransferForm.reset()
+    this.setMakeTransferForm();
   }
 
   checkAmount(fieldCtrl:AbstractControl):any{
