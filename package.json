@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node server.js",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "jest",
@@ -16,6 +16,10 @@
       "<rootDir>/src/setupJest.ts"
     ]
   },
+  "engines": {
+    "node": "14.17.1",
+    "npm": "6.14.13"
+ },
   "private": true,
   "dependencies": {
     "@angular/animations": "~12.0.5",
