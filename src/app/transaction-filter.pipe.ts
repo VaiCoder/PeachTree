@@ -9,6 +9,7 @@ export class TransactionFilterPipe implements PipeTransform {
     let searchResult:[] = [];
     if(transactionList.length > 0){
       if(!!searchTerm){
+        searchTerm = searchTerm.toLowerCase()
         searchResult = <[]>transactionList.filter(
           (each:any) => {
             return each.merchant.name.toLowerCase().indexOf(searchTerm) > -1;

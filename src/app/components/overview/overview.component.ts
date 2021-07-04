@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalDismissReasons, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 
 import { TransactionService } from 'src/app/services/transaction.service';
@@ -41,7 +41,8 @@ export class OverviewComponent implements OnInit {
         [
           Validators.min(0),
           Validators.required,
-          Validators.max(this.fixedBalance)
+          Validators.max(this.fixedBalance),
+          this.checkAmount.bind(this)
         ]
       ],
     });
@@ -68,6 +69,15 @@ export class OverviewComponent implements OnInit {
     this.makeTransferForm.reset()
   }
 
+  checkAmount(fieldCtrl:AbstractControl):any{
+    if(!fieldCtrl.value || fieldCtrl.value < 0 || fieldCtrl.value > this.fixedBalance) return null;
+    if(this.fixedBalance - fieldCtrl.value < 500 ){
+      return {
+          below500: true
+        }
+    }
+  }
+
   sendTransaction(){
     let currentTransaction = {
       "categoryCode": "#fbbb1b",
@@ -89,7 +99,7 @@ export class OverviewComponent implements OnInit {
     }
     this.transactionList = this.transactionList.concat(currentTransaction)
     this.modalService.dismissAll();
-    this.makeTransferForm.reset();
+    this.makeTransferForm.reset({'fromAccount':"My Personal Account: € "+this.fixedBalance});
   }
   
   handleChange(searchTerm:string){
