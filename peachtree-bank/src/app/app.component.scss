@@ -1,0 +1,38 @@
+
+@import 'bb-ui/styles/vars.scss';
+
+#main-content{
+    display: inline-block;
+    height: 84vh;
+    img {
+        height: 80vh;
+        width: 100%;
+        background-size: cover;
+        filter: blur(2px);
+        -webkit-filter: blur(2px);
+        position: absolute;
+        z-index: -2;
+    }
+    #inner-content{
+        width: 100vw;
+        padding: 50px 80px;
+    }
+}
+
+#header{
+    height: 10vh;
+    padding: 6px;
+    align-self: center;
+    padding-left: 15px;
+}
+
+#footer{
+    height: 6vh;
+}
+.header_text{
+    float: right;
+    color: $primary-blue;
+    font-size: 12px;
+    margin-left: 10px;
+    padding: 10px;
+}

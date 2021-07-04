@@ -1,0 +1,82 @@
+<div class="row col-md-12">
+    <form class="col-md-4" [formGroup]="makeTransferForm" id="makeTransferForm" #makeTransferFormEl>
+        <div class="formTitle"> 
+            <span class="fa fa-credit-card"></span>&nbsp;<b>Make</b> Transfer
+        </div>
+        <div class="formBody">
+            <div class="formItem">
+                <div class="label">From Account</div>
+                <input class="form-control lightText" formControlName="fromAccount" placeholder='{{"My Personal Account: &euro; "+fixedBalance}}'/>
+            </div>
+            <div class="formItem">
+                <div class="label">To Account</div>
+                <input class="form-control" formControlName="toAccount" placeholder="type an account name"/>
+                <div *ngIf="tf.toAccount?.errors && (tf.toAccount?.dirty || tf.toAccount?.touched)">
+                    <p class="errormessage" *ngIf="tf.toAccount?.errors.required">This field is required.</p>
+                </div>
+            </div>
+            <div class="formItem">
+                <div class="label">Amount</div>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><span class="fa fa-euro lightText"></span></span>
+                    </div>
+                    <input type="number" formControlName="totalamount" class="form-control" placeholder="specify the amount" required/>
+                </div>
+                <div *ngIf="tf.totalamount?.errors && (tf.totalamount?.dirty || tf.totalamount?.touched)">
+                    <p class="errormessage" *ngIf="tf.totalamount?.errors.required">This field is required.</p>
+                    <p class="errormessage" *ngIf="tf.totalamount?.errors.min">Negative values are not allowed</p>
+                    <p class="errormessage" *ngIf="tf.totalamount?.errors.max">There is not enough balance.</p>
+                    <p class="errormessage" *ngIf="tf.totalamount?.errors.below500">Minimum balance of 500 has to be maintained</p>
+                </div>
+            </div>
+            <div class="formItem confBtn">
+                <app-submit-button class="submitBtn" (submitForm)="getConfirmation(makeTransferConfirmationModal)"></app-submit-button>
+            </div>
+        </div>
+    </form>
+    <div class="divider"></div>
+    <form class="col-md-7">
+        <div class="formTitle"> 
+            <span class="fa fa-list-ul"></span>&nbsp;Transactions <b>List</b>
+        </div>
+        <div class="formBody transactionBody">
+            <div class="formItem">
+                <app-filter (inputChange)= "handleChange($event)"></app-filter>
+            </div>
+            <div class="formItem noTransactions" *ngIf="transactionList.length === 0">
+                Oops! No Transactions
+            </div>
+            <div class="formItem" id="transactions">
+                <div class="transactioncard" *ngFor="let each_transaction of transactionList | transactionFilter : transactionSearchTerm">
+                    <app-transaction-item>
+                        <div data-test-hook='transactionColour' [ngStyle]="{'border-left': '6px solid '+each_transaction.categoryCode}"> </div>
+                        <div data-test-hook='transactionDate'> {{each_transaction.dates.valueDate | date: "MMM. dd"}}</div>
+                        <div data-test-hook='transactionMerchantName'> {{each_transaction.merchant.name}}</div>
+                        <div data-test-hook='transactionType' class="ttype"> {{each_transaction.transaction.type}}</div>
+                        <div data-test-hook='transactionAmount' [ngClass]='each_transaction.transaction.creditDebitIndicator === "CRDT"?"credit":"debit"'> 
+                            {{each_transaction.transaction.creditDebitIndicator === "CRDT"?'':'-' }} {{each_transaction.transaction.amountCurrency.amount| currency:each_transaction.transaction.amountCurrency.currencyCode }}
+                        </div>
+                    </app-transaction-item>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<ng-template #makeTransferConfirmationModal>
+    <div class="modal-header">
+      <h4 class="modal-title"><b>Review</b> Transfer</h4>
+      <button type="button" class="close" (click)="closeModal()">X </button>
+    </div>
+    <div class="modal-body">
+        <i class="lightText">Are you ready to send out this transfer?</i><br/>
+        <b>It will be send to account:</b><br/>
+        <div>{{tf.toAccount.value}}</div>
+        <b>With the amount of:</b><br/>
+        <div>&euro; {{tf.totalamount.value}}</div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="closeModal()">Close</button>
+        <button type="button" class="btn btn-warning sendTransactionBtn" (click)="sendTransaction()">Send Transfer</button>
+    </div>
+  </ng-template>

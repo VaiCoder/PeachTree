@@ -1,0 +1,80 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/scss/bootstrap.scss";
+@import "~font-awesome/scss/font-awesome.scss";
+@import "~simple-line-icons/scss/simple-line-icons.scss";
+body{
+    font-family: Arial, Helvetica, sans-serif !important;
+}
+
+.row{
+    margin: 0px;
+}
+
+.pull-right{
+    float: right;
+}
+.lni{
+    padding: 4px;
+}
+.confBtn button{
+    background-color: orange;
+    border:none;
+    float: right;
+}
+
+.confBtn button:hover, .confBtn button:active, .confBtn button:focus{
+    background-color: darkorange;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+app-transaction-item{
+    display: flex;
+    width: 100%;
+    div{
+        padding: 3px 7px;
+    }
+
+    [data-test-hook='transactionDate']{
+        width: 15%;
+        align-self: center;
+    }
+    .merchant-details{
+        width: 70%;
+    }
+    [data-test-hook='transactionAmount']{
+        width: 15%;
+    }
+}
+
+.disabled{
+    button{
+        pointer-events: none;
+        background-color: grey;
+    }
+}
+.errormessage{
+    color: red;
+    font-size: 12px;
+    margin-bottom: 3px;
+    margin-top: 3px;
+}
+
+::placeholder{
+    font-style: italic;
+    font-size: 12px;
+}
+.label{
+    font-weight: bold;
+    font-size: 14px;
+}
+.lightText{
+    color: #454545;
+}

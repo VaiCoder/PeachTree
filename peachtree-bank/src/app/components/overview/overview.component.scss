@@ -1,0 +1,84 @@
+@import '../../bb-ui/styles/vars.scss';
+
+form{
+    .formTitle{
+        background-color: $primary-blue;
+        color: white;
+        border-radius: 15px 15px 0 0;
+        padding: 10px 20px;
+    }
+    .formBody{
+        background-color: white;
+        border-radius: 0 0 15px 15px;
+        padding: 10px 20px;
+        .formItem{
+            margin-bottom: 20px;
+            input.ng-invalid.ng-touched, .border-red{
+                border: 1px solid red;
+            }
+        }
+    }
+    .transactionBody{
+        border-radius: 0 0 4px 4px;
+    }
+    .fa{
+        padding: 4px;
+    }
+}
+.divider{
+    width: 3%;
+}
+#transactions{
+    height: 50vh;
+    overflow: auto;
+    .transactioncard{
+        border: none;
+        border-bottom: 1px solid #f1f1f1;
+        padding: 10px;
+        margin: 10px;
+        .ttype{
+            color: grey
+        }
+    }
+    .border-red{
+        border: none;
+        border-left: 6px solid red;
+    }
+    .border-green{
+        border: none;
+        border-left: 6px solid green;
+    }
+}
+.error{
+    color: red;
+    font-size: 13px;
+    margin-top: 3px;
+}
+.debit{
+    color: red;
+}
+.credit{
+    color: green;
+}
+button.close{
+    border: none;
+    background: white;
+    font-size: 25px;
+    color: grey;
+}
+.modal-body{
+    line-height: 2.3;
+}
+.modal-footer{
+    button.btn-warning{
+        color: white;
+        border:none;
+        background-color: #d17516;
+    }
+}
+#makeTransferForm .formBody{
+    padding-bottom: 50px;
+}
+.noTransactions{
+    color: grey;
+}
